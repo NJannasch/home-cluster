@@ -17,6 +17,16 @@ spec:
           value: /nextcloud
         - name: ingress.enabled
           value: 'true'
+        - name: nextcloud.configs.domain.config.php
+          value: |-
+            <?php
+            $CONFIG = array (
+              'trusted_domains' =>
+                array (
+                0 => '192.168.178.*',
+                1 => 'nextcloud.kube.home',
+                )
+            );
   destination:
     server: 'https://kubernetes.default.svc'
     namespace: nextcloud
