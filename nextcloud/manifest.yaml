@@ -13,20 +13,12 @@ spec:
       parameters:
         - name: cronjob.enabled
           value: 'true'
-        - name: ingress.path
-          value: /nextcloud
-        - name: ingress.enabled
-          value: 'true'
-        - name: nextcloud.configs.domain.config.php
-          value: |-
-            <?php
-            $CONFIG = array (
-              'trusted_domains' =>
-                array (
-                0 => '192.168.178.*',
-                1 => 'nextcloud.kube.home',
-                )
-            );
+      valueFiles: ['values.yaml']
+  #    valueFrom:
+  #      secretKeyRef:
+  #        name: nextcloud
+  #        key: secret_key
+          
   destination:
     server: 'https://kubernetes.default.svc'
     namespace: nextcloud

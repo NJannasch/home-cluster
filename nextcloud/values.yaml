@@ -1,0 +1,18 @@
+ingress:
+  labels:
+    - nextcloud
+  # enabled: true
+service:
+  type: NodePort
+  nodePort: 30080
+nextcloud:
+  configs:
+    domains.config.php: |-
+      <?php
+      $CONFIG = array (
+        'trusted_domains' =>
+          array (
+           0 => '192.168.178.*',
+           1 => 'nextcloud.kube.home',
+          )
+      );
