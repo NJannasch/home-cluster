@@ -1,0 +1,22 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: nextcloud-remote
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: 'https://github.com/nextcloud/helm.git'
+    path: charts/nextcloud
+    targetRevision: nextcloud-3.3.6
+    helm:
+      parameters:
+        - name: cronjob.enabled
+          value: 'true'
+        - name: ingress.path
+          value: /nextcloud
+        - name: ingress.enabled
+          value: 'true'
+  destination:
+    server: 'https://kubernetes.default.svc'
+    namespace: nextcloud
